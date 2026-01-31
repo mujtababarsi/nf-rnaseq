@@ -1,0 +1,22 @@
+# --- Nextflow Work & Logs ---
+.nextflow/
+.nextflow.log*
+work/
+
+# --- Project Binaries ---
+# We keep these local but don't push to GitHub
+bin/
+bin/nextflow
+bin/java
+bin/jdk*
+bin/sratoolkit*
+
+# --- Large Data Files ---
+# Never push raw sequencing data or large results
+data/raw/*.fastq.gz
+data/raw/*.sra
+results/
+
+# --- OS/Editor specific ---
+.DS_Store
+.vscode/
