@@ -1,8 +1,13 @@
 nextflow.enable.dsl=2
 
+include { FASTQC } from './modules/fastqc' // import FastQC module
+
 workflow RNASEQ_WORKFLOW {
-    // Define your RNA-seq workflow steps here
-
-println "RNA-seq DSL2 pipeline initialized successfully"
-
+    samples_ch = channel.fromPath (params.input)
+                 .splitCsv(header:true)
+                 .map { row ->
+                        tuple(row.sample, file(row.fastq))
+                    }
+    FASTQC(samples_ch)
 }
+
