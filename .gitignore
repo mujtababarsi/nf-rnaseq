@@ -1,22 +1,23 @@
-# --- Nextflow Work & Logs ---
+# --- Nextflow Work & Execution Logs ---
+# These folders contain thousands of temporary files
 .nextflow/
-.nextflow.log*
 work/
+.nextflow.log*
 
 # --- Project Binaries ---
-# We keep these local but don't push to GitHub
+# Ignoring the entire bin folder prevents any Java or SRA Toolkit 
+# files from being tracked, regardless of their subfolders.
 bin/
-bin/nextflow
-bin/java
-bin/jdk*
-bin/sratoolkit*
 
-# --- Large Data Files ---
-# Never push raw sequencing data or large results
-data/raw/*.fastq.gz
-data/raw/*.sra
+# --- Large Data Files & Results ---
+# Never push raw sequencing data or generated results
+data/
 results/
+*.fastq.gz
+*.sra
+*.bam
 
-# --- OS/Editor specific ---
+# --- OS & Editor Specific ---
 .DS_Store
 .vscode/
+.github/workflows/
