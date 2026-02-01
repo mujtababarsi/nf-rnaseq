@@ -1,27 +1,37 @@
 /*
- * High-level RNA-seq workflow
- * Runs FastQC on single-end RNA-seq data
+ * RNA-seq main workflow (DSL2)
+ * Current steps:
+ *   1) FastQC  – raw read quality control
+ *   2) Fastp   – adapter & quality trimming (single-end)
  */
 
-nextflow.enable.dsl=2
-
-include { FastQC as FASTQC } from '../modules/fastqc'
+include { FastQC } from '../modules/fastqc.nf'
+include { FASTP  } from '../modules/fastp.nf'
 
 workflow RNASEQ_WORKFLOW {
 
     /*
-     * Read samplesheet CSV
-     * Produces tuples: (sample_id, fastq)
+     * Input channel:
+     * tuple(sample_id, fastq)
      */
-    samples_ch = Channel
-        .fromPath(params.input)
-        .splitCsv(header: true)
-        .map { row ->
-            tuple(row.sample, file(row.fastq))
-        }
+    take:
+    samples_ch
+
+    main:
+    /*
+     * Step 1: Quality control on raw reads
+     */
+    qc_results = FastQC(samples_ch)
 
     /*
-     * Run FastQC
+     * Step 2: Trim reads
      */
-    FASTQC(samples_ch)
+    trimmed_reads = FASTP(samples_ch)
+
+    /*
+     * Outputs are emitted for downstream steps
+     */
+    emit:
+    qc_results
+    trimmed_reads
 }
