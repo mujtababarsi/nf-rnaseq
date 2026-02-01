@@ -5,7 +5,7 @@
 
 nextflow.enable.dsl=2
 
-include { FastQC } from '../modules/fastqc'
+include { FastQC as FASTQC } from '../modules/fastqc'
 
 workflow RNASEQ_WORKFLOW {
 
