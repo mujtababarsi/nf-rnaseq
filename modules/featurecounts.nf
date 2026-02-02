@@ -3,7 +3,7 @@ process FEATURECOUNTS {
     cpus 2
     memory '2 GB'
 
-    conda "${projectDir}/env/subread.yaml"
+    conda "${projectDir}/env/featurecounts.yml"
 
     input:
     tuple val(sample_id), path(bam)
