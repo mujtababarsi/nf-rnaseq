@@ -10,6 +10,9 @@ workflow RNASEQ_WORKFLOW {
     samples_ch
 
     main:
+
+    //build the index
+    index_ch = BUILD_INDEX(file(params.fasta), file(params.gtf))
     /*
      * Run FastQC
      */
