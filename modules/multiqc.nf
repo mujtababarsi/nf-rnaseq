@@ -6,7 +6,7 @@ process MULTIQC {
     conda "${projectDir}/envs/multiqc.yaml"
 
     input:
-    path reports*
+    path reports
 
     output:
     path "multiqc_report.html" 
