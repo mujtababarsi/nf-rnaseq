@@ -1,0 +1,7 @@
+name: nf-star
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - star=2.7.11b
+  - samtools=1.19
