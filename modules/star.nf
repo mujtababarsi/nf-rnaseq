@@ -4,8 +4,8 @@ process STAR_ALIGN {
 
     publishDir "${params.outdir}/alignment/star", mode: 'copy'
 
-    cpus 4
-    memory '8 GB'
+    cpus 2
+    memory '6 GB'
 
     container 'quay.io/biocontainers/star:2.7.10b--h6b7c446_1'
 
