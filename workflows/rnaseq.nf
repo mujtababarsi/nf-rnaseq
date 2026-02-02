@@ -31,23 +31,18 @@ workflow RNASEQ_WORKFLOW {
     /*
      * Aggregate reports using MultiQC
      */
-    qc_files = Channel.merge(
-        fastqc_out,
-        fastp_out,
-        star_out,
-        featurecounts_out
-    )
+    qc_files = Channel.empty()
+        .mix(fastqc_out)
+        .mix(fastp_out)
+        .mix(star_out)
+        .mix(counts_out.counts)
+        .collect()
+        
+    
     MULTIQC(qc_files)
      
     emit:
     
-    fastqc_html = fastqc_out.html
-    fast_zip = fastqc_out.zip
-
-    trimmed_reads = fastp_out.trimmed
-    fastp_report = fastp_out.report
-   
-    
-    bam_files = star_out.bam
-    gene_counts = counts_out.counts
-    }
+   bam = star_out.bam
+   counts = counts_out.counts
+}
