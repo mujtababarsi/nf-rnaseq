@@ -10,7 +10,7 @@ process STAR_ALIGN {
     tuple val(sample_id), path(reads*)
     
     output:
-    tuple val(sample_id), path("*.bam"), emit:bam
+    tuple val(sample_id), path("*.bam"), emit: bam
 
     script:
     """
