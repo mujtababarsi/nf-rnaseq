@@ -15,7 +15,9 @@ Channel
     .fromPath(params.samplesheet)
     .splitCsv(header: true)
     .map { row ->
-        tuple(row.sample_id, file(row.fastq))
+    row.fastq_2 ?
+        tuple(row.sample_id, file(row.fastq_1), file(row.fastq_2)) :
+        tuple(row.sample_id, file(row.fastq_1))
     }
     .set { samples_ch }
 
