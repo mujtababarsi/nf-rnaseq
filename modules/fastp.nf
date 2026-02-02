@@ -14,16 +14,23 @@ process FASTP {
     output:
     tuple val(sample_id), path("*.fq.gz"), emit: trimmed
     path "*.html", emit: report
-    path "*.json", emit: json
+   
 
     script:
+    reads.size() == 2 ? 
+    
     """
-    fastp \
-        -i ${reads} \
-        -o ${sample_id}.trimmed.fq.gz \
-        --detect_adapter_for_pe false \
-        --thread ${task.cpus} \
-        --html ${sample_id}_fastp.html \
-        --json ${sample_id}_fastp.json
+    fastp -i ${reads[0]} \ -I ${reads[1]} \  
+          -o ${sample_id}_R1.fq.gz \
+          -O ${sample_id}_R2.fq.gz \
+          --thread ${task.cpus} \
+          --html ${sample_id}_fastp.html \
+    """
+    :
+    """
+    fastp -i ${reads[0]} \  
+          -o ${sample_id}.fq.gz \
+          --thread ${task.cpus} \
+          --html ${sample_id}.html
     """
 }
