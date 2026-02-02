@@ -1,4 +1,5 @@
-process STAR_ALIGN {
+process STAR_ALIGN 
+{
     tag "$sample_id"
 
     cpus 4
@@ -7,7 +8,7 @@ process STAR_ALIGN {
     conda "${projectDir}/envs/star.yml"
     
     input:
-    tuple val(sample_id), path(reads*)
+    tuple val(sample_id), path(reads)
     
     output:
     tuple val(sample_id), path("*.bam"), emit: bam

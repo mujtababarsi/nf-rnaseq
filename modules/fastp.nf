@@ -20,7 +20,7 @@ process FASTP {
     reads.size() == 2 ? 
     
     """
-    fastp -i ${reads[0]} \ -I ${reads[1]} \  
+    fastp -i ${reads[0]} -I ${reads[1]} 
           -o ${sample_id}_R1.fq.gz \
           -O ${sample_id}_R2.fq.gz \
           --thread ${task.cpus} \
