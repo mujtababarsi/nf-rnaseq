@@ -19,20 +19,29 @@ workflow RNASEQ_WORKFLOW {
     /*
      * Run Fastp trimming
      */
-    trimmed = FASTP(samples_ch)
+    fastp_out = FASTP(samples_ch)
     /*
      * Align reads using STAR
      */
-    aligned = STAR_ALIGN(trimmed.trimmed)
+    star_out = STAR_ALIGN(fastp_out.trimmed)
     /*
      * Quantify features using FeatureCounts
      */
-    counts = FEATURECOUNTS(aligned.bam)
+    counts_out = FEATURECOUNTS(star_out.bam)
     /*
      * Aggregate reports using MultiQC
      */
-    MULTIQC(fastqc_out.html, trimmed.report)
-
+    MULTIQC(fastqc_out.html, fastp_out.report)
+    
     emit:
-    counts
-}
+    
+    fastqc_html = fastqc_out.html
+    fast_zip = fastqc_out.zip
+
+    trimmed_reads = fastp_out.trimmed
+    fastp_report = fastp_out.report
+    fastp.json = fastp_out.json
+    
+    bam_files = star_out.bam
+    gene_counts = counts_out.counts
+    }
