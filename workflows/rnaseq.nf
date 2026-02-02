@@ -12,7 +12,7 @@ workflow RNASEQ_WORKFLOW {
     main:
 
     //build the index
-    index_ch = BUILD_INDEX(file(params.fasta), file(params.gtf))
+    index_ch = BUILD_INDEX(file(params.fasta, checkIfExists: true), file(params.gtf, checkIfExists: true)).index
     /*
      * Run FastQC
      */
