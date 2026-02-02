@@ -12,7 +12,6 @@ workflow RNASEQ_WORKFLOW {
     main:
     /*
      * Run FastQC
-     * This returns multiple named outputs
      */
     fastqc_out = FastQC(samples_ch)
 
@@ -20,29 +19,34 @@ workflow RNASEQ_WORKFLOW {
      * Run Fastp trimming
      */
     fastp_out = FASTP(samples_ch)
+
     /*
      * Align reads using STAR
+     * FIX: Added params.genome as the 2nd argument
      */
-    star_out = STAR_ALIGN(fastp_out.trimmed)
+    star_out = STAR_ALIGN(fastp_out.trimmed, params.genome)
+
     /*
      * Quantify features using FeatureCounts
+     * NOTE: If this module also expects a GTF, you may need to add params.gtf here later.
      */
     counts_out = FEATURECOUNTS(star_out.bam)
+
     /*
      * Aggregate reports using MultiQC
+     * FIX: specific channels (.json, .log) selected for cleaner mixing
      */
     qc_files = Channel.empty()
         .mix(fastqc_out)
-        .mix(fastp_out)
-        .mix(star_out)
-        .mix(counts_out.counts)
+        .mix(fastp_out.json)   // Capture the JSON report
+        .mix(fastp_out.report) // Capture the HTML report
+        .mix(star_out.log)     // Capture the STAR Log.final.out
+        .mix(counts_out.counts)// Capture FeatureCounts output
         .collect()
         
-    
     MULTIQC(qc_files)
      
     emit:
-    
-   bam = star_out.bam
-   counts = counts_out.counts
-}
+    bam = star_out.bam
+    counts = counts_out.counts
+}   
