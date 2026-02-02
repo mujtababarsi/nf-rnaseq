@@ -40,7 +40,7 @@ workflow RNASEQ_WORKFLOW {
 
     trimmed_reads = fastp_out.trimmed
     fastp_report = fastp_out.report
-    fastp.json = fastp_out.json
+   
     
     bam_files = star_out.bam
     gene_counts = counts_out.counts
