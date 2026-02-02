@@ -3,8 +3,7 @@ process FEATURECOUNTS {
     cpus 2
     memory '2 GB'
 
-    conda "${projectDir}/env/featurecounts.yml"
-
+    container 'quay.io/biocontainers/subread:2.0.1--hed695b0_0'
     input:
     tuple val(sample_id), path(bam)
 
