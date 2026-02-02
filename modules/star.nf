@@ -11,7 +11,7 @@ process STAR_ALIGN {
 
     input:
     tuple val(sample_id), path(reads)
-
+    path index
     output:
     tuple val(sample_id), path("${sample_id}_Aligned.sortedByCoord.out.bam"), emit: bam
     path "${sample_id}_Log.final.out", emit: log
@@ -19,7 +19,7 @@ process STAR_ALIGN {
     script:
     """
     STAR \
-      --genomeDir ${params.genome} \
+     --genomeDir ${index} \
       --readFilesIn ${reads} \
       --readFilesCommand zcat \
       --runThreadN ${task.cpus} \
