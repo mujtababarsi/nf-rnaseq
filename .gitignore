@@ -23,7 +23,7 @@ references/*
 .idea/
 report-*.html
 timeline-*.html
-flowchart.png
+
 bin/
 # Ignore execution artifacts
 flowchart.png
