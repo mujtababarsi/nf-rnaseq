@@ -1,5 +1,6 @@
 process FEATURECOUNTS {
     tag "$sample_id" 
+    publishDir "${params.outdir}/quantification", mode: 'copy'
     cpus 2
     memory '2 GB'
 
