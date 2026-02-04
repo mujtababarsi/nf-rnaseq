@@ -6,7 +6,7 @@
 
 ## 📖 Introduction
 
-**nf-rnaseq** is a portable bioinformatics analysis pipeline written in [Nextflow](https://www.nextflow.io) using **DSL2**. It handles the preprocessing, alignment, and quantification of RNA-sequencing data using containerized tools.
+**nf-rnaseq** is a portable bioinformatics analysis pipeline written in [Nextflow](https://www.nextflow.io) using **DSL2**. It handles the preprocessing, alignment, and quantification of RNA-sequencing data using containerised tools.
 
 The pipeline is built for high reproducibility and scalability, designed to run seamlessly on local machines, HPC clusters, or cloud environments.
 
@@ -58,11 +58,15 @@ To ensure results can be replicated across different environments, this pipeline
 
 ## 📂 Output Structure
 
-Results are organized systematically in the `results/` directory:
-* `quality_control/`: Final **MultiQC** dashboard and individual **FastQC** reports.
-* `alignment/`: Coordinate-sorted **STAR** BAM files and **FeatureCounts** matrices.
-* `preprocessing/`: Cleaned FastQ files and **fastp** execution logs.
+After the run completes, results are organized in the `results/` directory:
+
+* `quality_control/`: Individual **FastQC** reports for raw data assessment.
+* `preprocessing/`: Cleaned/trimmed FastQ files and **fastp** execution logs.
+* `alignment/`: Coordinate-sorted **STAR** BAM files.
+* `quantification/`: Gene-level **FeatureCounts** matrices and summary files.
+* `multiqc_report/`: The final aggregated **MultiQC** dashboard (interactive HTML).
+
 
 ## ✍️ Authors
 
-* **Mohamedelmugtaba** - *Lead Developer* ([GitHub](https://github.com/mujtababarsi) | [LinkedIn](https://www.linkedin.com/in/mohamedelmugtaba-ibrahim-790151167/))
+* **Mohamedelmugtaba** - *Lead Developer* ([GitHub](https://github.com/mujtababarsi) 
