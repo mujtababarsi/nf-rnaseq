@@ -24,6 +24,14 @@ The pipeline implements a modular design where each process is isolated, ensurin
 4.  **Quantification**: Gene-level feature counting using `featureCounts` (Subread).
 5.  **Reporting**: Automated aggregation of all quality metrics into a single interactive `MultiQC` report.
 
+
+## 🧬 Dataset & Reference
+The pipeline is currently configured and validated using a subset of **Human Transcriptomic Data**:
+* **Species**: *Homo sapiens* (Human).
+* **Reference Scope**: **Chromosome 22 (chr22)**. Using this subset allows for rapid pipeline validation and testing while maintaining the complexity of human gene annotations.
+* **Input Type**: Paired-end or Single-end RNA-seq FASTQ files.
+
+
 ## 🛡️ Validation & Reliability
 
 * **Fail-Fast Check**: Integrated validation ensures the input samplesheet is not empty before initiating computational processes.
